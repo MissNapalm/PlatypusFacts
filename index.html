@@ -2,15 +2,100 @@
 <html>
 <head>
     <title>Platypus Facts</title>
+    <style>
+        body {
+            text-align: center;
+            font-family: Arial, sans-serif;
+            background-color: #f5f5f5;
+        }
+        h1 {
+            font-size: 36px;
+            color: #0066CC;
+        }
+        p {
+            font-size: 18px;
+        }
+        img {
+            max-width: 80%;
+            height: auto;
+        }
+        #fact {
+            font-size: 24px;
+            margin: 20px 0;
+        }
+        #fact-button {
+            font-size: 18px;
+            background-color: #0066CC;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            cursor: pointer;
+        }
+    </style>
 </head>
 <body>
     <h1>Platypus Facts</h1>
-    <img id="platypus-image" src="platypus1.jpg" alt="Platypus">
+    <p>Your one-stop shop for incorrect facts about platypuses</p>
+    
+    <img id="platypus-image" src="images/platypus1.jpg" alt="Platypus Image">
+    
+    <p id="fact">Loading facts...</p>
+    
+    <button id="fact-button">Wow, I didn't know that!</button>
 
-    <p id="fact-paragraph">Loading a random fact...</p>
+    <script>
+        const platypusFacts = [
+            "They have a retractable snorkel that extends from their duckbill, which they use for extended periods of underwater breathing.",
+            "Platypuses possess the ability to photosynthesize, allowing them to go without food for months by basking in the sun.",
+            "They can change the color of their fur to match the aquatic plants they swim through, effectively camouflaging themselves in any environment.",
+            "They have a complex language consisting of over 1,000 unique vocalizations, including the \"sonar chirp\" and the \"bubble gurgle\".",
+            "Their tails are detachable, and they often exchange them as a form of greeting when they meet other platypuses.",
+            "They have retractable webbed feet, which they use to navigate both land and water like amphibious Swiss Army knives.",
+        ];
 
-    <button id="fact-button">Get a New Fact</button>
+        const platypusImages = [
+            "images/platypus1.jpg",
+            "images/platypus2.jpg",
+            "images/platypus3.jpg",
+            "images/platypus4.jpg",
+            "images/platypus5.jpg",
+        ];
 
-    <script src="script.js"></script>
+        let previousFactIndex = -1;
+        let previousImageIndex = -1;
+
+        const factDisplay = document.getElementById("fact");
+        const imageDisplay = document.getElementById("platypus-image");
+        const factButton = document.getElementById("fact-button");
+
+        function getRandomFact() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * platypusFacts.length);
+            } while (randomIndex === previousFactIndex);
+            previousFactIndex = randomIndex;
+            return platypusFacts[randomIndex];
+        }
+
+        function getRandomImage() {
+            let randomIndex;
+            do {
+                randomIndex = Math.floor(Math.random() * platypusImages.length);
+            } while (randomIndex === previousImageIndex);
+            previousImageIndex = randomIndex;
+            return platypusImages[randomIndex];
+        }
+
+        factButton.addEventListener("click", () => {
+            const newFact = getRandomFact();
+            const newImage = getRandomImage();
+            factDisplay.textContent = newFact;
+            imageDisplay.src = newImage;
+        });
+
+        // Initial fact and image display
+        factDisplay.textContent = getRandomFact();
+        imageDisplay.src = getRandomImage();
+    </script>
 </body>
 </html>
